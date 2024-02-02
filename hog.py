@@ -25,9 +25,9 @@ def roll_dice(num_rolls, dice=six_sided):
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
     res = 0
-    while num_rolls > 0 :
+    while num_rolls > 0:
         res_of_roll = dice()
-        if(res_of_roll == 1 or res == 1):
+        if (res_of_roll == 1 or res == 1):
             res = 1
             num_rolls -= 1
         else:
@@ -49,6 +49,7 @@ def free_bacon(score):
     # Trim pi to only (score + 1) digit(s)
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    pi = pi // pow(10, 100 - score)  # trim 100 - (score + 1) digits
     # END PROBLEM 2
 
     return pi % 10 + 3
