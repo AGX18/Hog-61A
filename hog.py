@@ -6,6 +6,7 @@ from ucb import main, trace, interact
 GOAL_SCORE = 100  # The goal of Hog is to score 100 points.
 FIRST_101_DIGITS_OF_PI = 31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
 
+
 ######################
 # Phase 1: Simulator #
 ######################
@@ -23,6 +24,17 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    res = 0
+    while num_rolls > 0 :
+        res_of_roll = dice()
+        if(res_of_roll == 1 or res == 1):
+            res = 1
+            num_rolls -= 1
+        else:
+            num_rolls -= 1
+            res += res_of_roll
+
+    return res
     # END PROBLEM 1
 
 
@@ -172,6 +184,7 @@ def announce_lead_changes(last_leader=None):
     >>> f5 = f4(15, 13)
     Player 0 takes the lead by 2
     """
+
     def say(score0, score1):
         if score0 > score1:
             leader = 0
@@ -182,6 +195,7 @@ def announce_lead_changes(last_leader=None):
         if leader != None and leader != last_leader:
             print('Player', leader, 'takes the lead by', abs(score0 - score1))
         return announce_lead_changes(leader)
+
     return say
 
 
@@ -201,8 +215,10 @@ def both(f, g):
     Player 0 now has 10 and Player 1 now has 17
     Player 1 takes the lead by 7
     """
+
     def say(score0, score1):
         return both(f(score0, score1), g(score0, score1))
+
     return say
 
 
@@ -249,8 +265,10 @@ def always_roll(n):
     >>> strategy(99, 99)
     5
     """
+
     def strategy(score, opponent_score):
         return n
+
     return strategy
 
 
@@ -325,7 +343,6 @@ def run_experiments():
     "*** You may add additional experiments as you wish ***"
 
 
-
 def bacon_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     """This strategy rolls 0 dice if that gives at least CUTOFF points, and
     rolls NUM_ROLLS otherwise.
@@ -353,6 +370,7 @@ def final_strategy(score, opponent_score):
     # BEGIN PROBLEM 12
     return 6  # Replace this statement
     # END PROBLEM 12
+
 
 ##########################
 # Command Line Interface #
