@@ -70,6 +70,13 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    res = 0
+    if num_rolls == 0:
+        res = free_bacon(opponent_score)
+    else:
+        res = roll_dice(num_rolls, dice)
+
+    return res
     # END PROBLEM 3
 
 
@@ -77,6 +84,16 @@ def extra_turn(player_score, opponent_score):
     """Return whether the player gets an extra turn."""
     return (pig_pass(player_score, opponent_score) or
             swine_align(player_score, opponent_score))
+
+
+def gcd(a, b):
+    assert int == type(a), "cannot get a gcd for a non-number"
+    assert int == type(b), "cannot get a gcd for a non-number"
+
+    if a == 0:
+        return b
+
+    return gcd(b % a, a)
 
 
 def swine_align(player_score, opponent_score):
@@ -92,6 +109,9 @@ def swine_align(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4a
     "*** YOUR CODE HERE ***"
+    if player_score != 0 and opponent_score != 0 and gcd(player_score, opponent_score) >= 10:
+        return True
+    return False
     # END PROBLEM 4a
 
 
@@ -114,6 +134,9 @@ def pig_pass(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4b
     "*** YOUR CODE HERE ***"
+    if 3 > (opponent_score - player_score) > 0:
+        return True
+    return False
     # END PROBLEM 4b
 
 
