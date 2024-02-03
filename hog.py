@@ -180,11 +180,13 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     while score0 < goal and score1 < goal:
         # player 0 is playing
         score0 += take_turn(strategy0(score0, score1), score1, dice)
+        say = say(score0, score1)
         while extra_turn(score0, score1):
             if score0 >= goal:
                 game_over = 1
                 break
             score0 += take_turn(strategy0(score0, score1), score1, dice)
+            say = say(score0, score1)
 
         who = 1  # player 1 is playing
 
@@ -193,12 +195,13 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             break
 
         score1 += take_turn(strategy1(score1, score0), score0, dice)
-
+        say = say(score0, score1)
         while extra_turn(score1, score0):
             if score1 >= goal:
                 game_over = 1
                 break
             score1 += take_turn(strategy1(score1, score0), score0, dice)
+            say = say(score0, score1)
 
         if game_over == 1:
             break
@@ -294,8 +297,24 @@ def announce_highest(who, last_score=0, running_high=0):
     30 point(s)! The most yet for Player 1
     """
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
+
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+
+    def announce(score0, score1):
+        if who == 0:
+            if (score0 - last_score) > running_high:
+                print(f"{score0 - last_score} point(s)! The most yet for Player {who}")
+                return announce_highest(0, score0, score0 - last_score)
+            return announce_highest(0, score0, running_high)
+
+        else:
+            if score1 - last_score > running_high:
+                print(f"{score1 - last_score} point(s)! The most yet for Player {who}")
+                return announce_highest(1, score1, score1 - last_score)
+            return announce_highest(1, score1, running_high)
+
+    return announce
     # END PROBLEM 7
 
 
