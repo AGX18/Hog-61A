@@ -31,8 +31,8 @@ def roll_dice(num_rolls, dice=six_sided):
             res = 1
             num_rolls -= 1
         else:
-            num_rolls -= 1
             res += res_of_roll
+            num_rolls -= 1
 
     return res
     # END PROBLEM 1
@@ -176,7 +176,35 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
-    # END PROBLEM 5
+    game_over = 0  # boolean to indicate whether a player reached the goal or not
+    while score0 < goal and score1 < goal:
+        # player 0 is playing
+        score0 += take_turn(strategy0(score0, score1), score1, dice)
+        while extra_turn(score0, score1):
+            if score0 >= goal:
+                game_over = 1
+                break
+            score0 += take_turn(strategy0(score0, score1), score1, dice)
+
+        who = 1  # player 1 is playing
+
+        if score0 >= goal:
+            game_over = 1
+            break
+
+        score1 += take_turn(strategy1(score1, score0), score0, dice)
+
+        while extra_turn(score1, score0):
+            if score1 >= goal:
+                game_over = 1
+                break
+            score1 += take_turn(strategy1(score1, score0), score0, dice)
+
+        if game_over == 1:
+            break
+
+        # END PROBLEM 5
+
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
