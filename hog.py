@@ -357,6 +357,17 @@ def make_averaged(original_function, trials_count=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def averaged(*args):
+        res = 0
+        i = 1
+        while trials_count >= i:
+            i += 1
+            res += original_function(*args)
+
+        res = res / trials_count
+        return res
+
+    return averaged
     # END PROBLEM 8
 
 
